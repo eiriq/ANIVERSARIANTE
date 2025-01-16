@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feliz Aniversário</title>
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1a1a1a 0%, #4a1155 100%);
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            text-shadow: 0 0 10px rgba(147, 51, 234, 0.5);
+        }
+
+        .button {
+            padding: 20px 40px;
+            background: linear-gradient(45deg, #9333ea, #c026d3);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 1.2rem;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(147, 51, 234, 0.4);
+        }
+
+        #popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, #1a1a1a 0%, #4a1155 100%);
+            color: white;
+            border-radius: 15px;
+            border: 2px solid white;
+            padding: 20px;
+            width: 80%;
+            max-width: 500px;
+            height: 60%;
+            overflow-y: auto;
+            text-align: center;
+            animation: fadeIn 0.5s ease;
+            box-shadow: 0 0 30px rgba(147, 51, 234, 0.6);
+        }
+
+        #popup h2 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        #popup p {
+            font-size: 1rem;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        #popup::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        #popup::-webkit-scrollbar-thumb {
+            background: #9333ea;
+            border-radius: 10px;
+        }
+
+        #popup::-webkit-scrollbar-thumb:hover {
+            background: #c026d3;
+        }
+
+        #popup .close-btn {
+            padding: 10px 20px;
+            background: white;
+            color: #4a1155;
+            border-radius: 15px;
+            cursor: pointer;
+            border: none;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        #popup .close-btn:hover {
+            background: #c026d3;
+            color: white;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translate(-50%, -60%); }
+            to { opacity: 1; transform: translate(-50%, -50%); }
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; transform: translate(-50%, -50%); }
+            to { opacity: 0; transform: translate(-50%, -40%); }
+        }
+
+        .confetti {
+            position: fixed;
+            top: 0;
+            left: 50%;
+            width: 10px;
+            height: 10px;
+            background: red;
+            border-radius: 50%;
+            animation: confettiFall 3s linear infinite;
+            pointer-events: none;
+        }
+
+        .heart {
+            position: fixed;
+            top: 0;
+            font-size: 24px;
+            color: #ff69b4;
+            animation: heartFall 4s linear infinite;
+            pointer-events: none;
+        }
+
+        .star {
+            position: fixed;
+            top: 0;
+            font-size: 20px;
+            color: #ffd700;
+            animation: starFall 3.5s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes confettiFall {
+            0% {
+                transform: translateY(-100%) rotate(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes heartFall {
+            0% {
+                transform: translateY(-100%) translateX(-50%) rotate(0) scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(50vh) translateX(-50%) rotate(180deg) scale(1.2);
+            }
+            100% {
+                transform: translateY(100vh) translateX(-50%) rotate(360deg) scale(1);
+                opacity: 0;
+            }
+        }
+
+        @keyframes starFall {
+            0% {
+                transform: translateY(-100%) translateX(-50%) rotate(0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) translateX(-50%) rotate(720deg) scale(0.5);
+                opacity: 0;
+            }
+        }
+
+        #evelyn {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 2.5rem;
+            text-decoration: underline;
+            cursor: pointer;
+            opacity: 0;
+            animation: evelynFadeIn 2s ease forwards;
+            text-shadow: 0 0 20px rgba(192, 38, 211, 0.8);
+        }
+
+        @keyframes evelynFadeIn {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+
+        #evelyn:hover {
+            color: #c026d3;
+        }
+
+        .content-container {
+            transition: opacity 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="content-container">
+        <h1>Feliz aniversário, eu te amo sabia?</h1>
+        <button class="button" onclick="openPopup()">Ler</button>
+    </div>
+
+    <div id="popup">
+        <h2>Surpresa!</h2>
+        <p>Oi, queria pedir desculpas acima de tudo por não ter feito nada demais, mesmo que não seja, eu fiz com carinho tá? Deve estar cheio de erros e cheio de falhas e o código todo mal depurado mas me perdoe, eu to terminando isso as 3 da manhã, to cansado e amanhã tenho que levantar cedo, então mesmo que não seja muito ainda sim, considere pelo meu esforço tá bem? :)<br><br>
+        Não é muito, mas é de coração.<br><br>
+        Quero que saiba que todos os momentos foram importantes, desde que te conheci até de onde chegamos, foi ótimo passar esses momentos com você, ótimo. Não vou falar sobre a nossa vida inteira porque não é uma surpresa aleatória e sim um presente de aniversário kk, então só vou me ater a falar disso.<br><br>
+        Você faz 18 e puta merda... como você cresceu, eu fico louco de imaginar isso.<br><br>
+        Antes era aquela menina quieta, se tornou uma menina comunicativa e carismática e agora é uma mulher completa, com ideais, moral e ética, além de tudo que uma mulher forte e corajosa tem.<br><br>
+        Você não tem noção do orgulho que eu tenho de você, pra caralho.<br><br>
+        Evelyn, não imaginei que quando eu te conheci iríamos virar tudo isso, hoje você é mais que minha melhor amiga e se tornou minha irmã, e espero que sinta pelo menos 1% do tanto que eu te considero.<br><br>
+        Você é algo necessário na minha vida, me fez e faz feliz, e sempre esteve comigo nos meus melhores e piores momentos, assim como sempre espero que estive e estar com você também. Daqui pra frente não vamos nos ver frequentemente mais, ligados à escola, e peço que consiga entender isso da maneira específica que eu entendi, que nesse caso, não deixarei você ir embora, pois a gente nunca foi uma amizade de escola.<br><br>
+        É uma merda não poder curtir teu aniversário hoje né? Que merda.<br><br>
+        Trabalho e essa correria infernal que você estava ferrou com tudo, mas ainda sim sorria, acho que as pessoas que nos dão importância é o que fazem nossos dias melhores. Não é sobre comemorações e presentes afinal, e sim o amor e carinho, de quem a gente ama.<br><br>
+        Feliz aniversário meu bem, e muitos anos de vida, que seja esse de muitos e você merece demais.<br><br>
+        Quando você fechar essa janela, clique no nome "Evelyn", ok?</p>
+        <button class="close-btn" onclick="closePopup()">Fechar</button>
+    </div>
+
+    <div id="evelyn" onclick="window.location.href='https://drive.google.com/file/d/1P3dX_70Ki7ejjcDshNph_9hPvFU7Spda/view?usp=sharing'">Evelyn</div>
+
+    <script>
+        function openPopup() {
+            const popup = document.getElementById('popup');
+            popup.style.display = 'block';
+            startEffects();
+        }
+
+        function closePopup() {
+            const popup = document.getElementById('popup');
+            const contentContainer = document.querySelector('.content-container');
+            
+            popup.style.animation = 'fadeOut 0.5s ease';
+            contentContainer.style.opacity = '0';
+            
+            setTimeout(() => {
+                popup.style.display = 'none';
+                document.getElementById('evelyn').style.display = 'block';
+                contentContainer.style.display = 'none';
+            }, 500);
+        }
+
+        let effectsInterval;
+
+        function startEffects() {
+            effectsInterval = setInterval(() => {
+                // Criar confete
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * window.innerWidth + 'px';
+                confetti.style.background = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                document.body.appendChild(confetti);
+
+                // Criar mais corações
+                for (let i = 0; i < 3; i++) {
+                    const heart = document.createElement('div');
+                    heart.className = 'heart';
+                    heart.innerHTML = '❤';
+                    heart.style.left = Math.random() * window.innerWidth + 'px';
+                    heart.style.fontSize = Math.random() * 10 + 20 + 'px'; // Tamanhos variados
+                    heart.style.color = `hsl(${340 + Math.random() * 20}, 100%, ${60 + Math.random() * 20}%)`; // Tons de rosa
+                    document.body.appendChild(heart);
+                }
+
+                // Criar estrela
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.innerHTML = '⭐';
+                star.style.left = Math.random() * window.innerWidth + 'px';
+                document.body.appendChild(star);
+
+                // Remover elementos após a animação
+                setTimeout(() => {
+                    confetti.remove();
+                    star.remove();
+                    const hearts = document.getElementsByClassName('heart');
+                    while(hearts.length > 0) {
+                        hearts[0].remove();
+                    }
+                }, 4000);
+            }, 150); // Intervalo reduzido para mais efeitos
+        }
+    </script>
+</body>
+</html>
